@@ -1,0 +1,130 @@
+<script type="text/javascript">
+    RED.nodes.registerType('google-tts',{
+        category: 'function',
+        color: '#F0F0F0',
+        defaults: {
+            name: {value:""},
+            inputField: {value: "payload", required: true},
+            inputFieldType: {value: "msg"},
+            outputField: {value: "payload", required: true},
+            outputFieldType: {value: "msg"},
+            languageField: {value: "en", required: true},
+            languageFieldType: {value: "str"},
+            speedField: {value: "1", required: true},
+            speedFieldType: {value: "num"},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "feed.png",
+        label: function() {
+            return this.name||"google tts";
+        },
+        oneditprepare: function() {
+            if (!this.inputFieldType) {
+                this.inputFieldType = 'msg';
+            }
+            $("#node-input-inputField").typedInput({
+                default: 'msg',
+                types: ['msg','flow','global', 'str'],
+                typeField: $("#node-input-inputFieldType")
+            });
+            if (!this.outputFieldType) {
+                this.hashFieldType = 'msg';
+            }
+            $("#node-input-outputField").typedInput({
+                default: 'msg',
+                types: ['msg','flow','global'],
+                typeField: $("#node-input-outputFieldType")
+            });
+            $("#node-input-languageField").typedInput({
+                default: 'str',
+                types: ['str','msg','flow','global'],
+                typeField: $("#node-input-languageFieldType")
+            });
+            $("#node-input-speedField").typedInput({
+                default: 'num',
+                types: ['num','msg','flow','global'],
+                typeField: $("#node-input-speedFieldType")
+            });
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="google-tts">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-inputfield"><i class="fa fa-edit"></i> Input Property</label>
+        <input type="text" id="node-input-inputField" placeholder="Property containing text" style="width:250px;">
+        <input type="hidden" id="node-input-inputFieldType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-outputField"><i class="fa fa-edit"></i> Output Property</label>
+        <input type="text" id="node-input-outputField" placeholder="Property to store speech URL" style="width:250px;">
+        <input type="hidden" id="node-input-outputFieldType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-languageField"><i class="fa fa-edit"></i> Language Property</label>
+        <input type="text" id="node-input-languageField" placeholder="Property contain language code" style="width:250px;">
+        <input type="hidden" id="node-input-languageFieldType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-speedField"><i class="fa fa-edit"></i> Speed Property</label>
+        <input type="text" id="node-input-speedField" placeholder="Property containing speed value" style="width:250px;">
+        <input type="hidden" id="node-input-speedFieldType">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="google-tts">
+    <p>Translates text to speech using Google's TTS service.</p>
+
+    <h3>Properties</h3>
+    <dl class="message-properties">
+        <dt>name <span class="property-type">string</span></dt>
+        <dd> the node name to display in the editor. </dd>
+        <dt>input property <span class="property-type">property</span></dt>
+        <dd> the property containing the text to convert. </dd>
+        <dt>output property <span class="property-type">property</span></dt>
+        <dd> the property in which the result will be stored. </dd>
+        <dt>language property <span class="property-type">property</span></dt>
+        <dd> the property containing the language code for the voice. </dd>
+        <dt>speed property <span class="property-type">property</span></dt>
+        <dd> the property containing the speed for the voice. </dd>
+    </dl>
+
+    <h3>Input</h3>
+        <dl class="message-properties">
+            <dt><i>input property</i> <span class="property-type">object</span></dt>
+            <dd> the value to be converted to speech.</dd>
+            <dt><i>language property</i> <span class="property-type">string</span></dt>
+            <dd> the language code for the voice to be used.</dd>
+            <dt><i>speed property</i> <span class="property-type">number</span></dt>
+            <dd> a value between  and 1 defining the speed of the speech.</dd>
+        </dl>
+
+    <h3>Output</h3>
+        <dl class="message-properties">
+            <dt><i>output property</i> <span class="property-type">string</span></dt>
+            <dd> the URL where the speech audio can be retrieved.</dd>
+        </dl>
+
+        The contents of input messages are passed through unchanged, except for the output property.
+
+    <h3>Details</h3>
+
+    <p>This node sends a string of text to Google's Text to Speech engine for it to be converted into
+    speech audio.  The result returned is a URL that can be used to download the speech audio file in
+    MP3 format to be saved or played on a device or browser. The URL can be passed to the
+    <a href="https://www.npmjs.com/package/node-red-contrib-google-cast">node-red-contrib-google-cast</a>
+    to be played of Google Home and Chromecast devices.</p>
+
+    <p>Google's TTS service has an input string length limit of 200 characters. If the text to be translated is
+    greater than 200 characters, it will be intelligently broken into segments and the output will consist of
+    an array of URLs linking to sequential audio files encoding each segment.</p>
+
+    <p>The value in the <code>language property</code> defines the voice that will be used to speech audio.
+    It does not translate the text into that language. Supported code are listed in
+    <a href="https://cloud.google.com/speech/docs/languages">Google's supported language codes</a>.</p>
+</script>

@@ -1,0 +1,32 @@
+{
+  "name": "node-red-contrib-google-tts",
+  "version": "1.0.0",
+  "description": "A node-red node for translating text to speech using Google's TTS service.",
+  "dependencies": {
+    "isomorphic-fetch": "2.2.*"
+  },
+  "author": {
+    "name": "Dean Cording",
+    "email": "dean@cording.id.au"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node-red",
+    "tts",
+    "speech",
+    "google"
+  ],
+  "bugs": {
+    "url": "https://github.com/DeanCording/node-red-contrib-google-tts/issues"
+  },
+  "homepage": "https://github.com/DeanCording/node-red-contrib-google-tts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DeanCording/node-red-contrib-google-tts.git"
+  },
+  "node-red": {
+    "nodes": {
+      "google-tts": "google-tts.js"
+    }
+  }
+}
