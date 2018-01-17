@@ -45,7 +45,7 @@ module.exports = function(RED) {
         node.outputFieldType = config.outputFieldType || "msg";
         node.languageField = config.languageField  || "en";
         node.languageFieldType = config.languageFieldType || "str";
-        node.speedField = config.speedField  || "1";
+        node.speedField = config.speedField;
         node.speedFieldType = config.speedFieldType || "num";
 
         const isSpace = (s, i) => /\s/.test(s.charAt(i));
