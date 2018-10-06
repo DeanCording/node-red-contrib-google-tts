@@ -102,16 +102,13 @@ module.exports = function(RED) {
                 return res.text();
             })
             .then(function (html) {
-                var TKK = null;
 
-                try {
-                    eval(html.match(/TKK=eval\(\'\(.*\)\'\);/g)[0]);  // TKK = '405291.1334555331'
-                if (TKK === null) throw null;
-                } catch (e) {
-                    node.error('Get key failed from google');
-                }
+                var match = html.match("TKK='(\\d+.\\d+)';");
 
-                return TKK;
+                if (!match) node.error('Get key failed from google');
+
+                return match[1];
+                
             });
         };
 
