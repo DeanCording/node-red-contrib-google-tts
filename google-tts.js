@@ -102,8 +102,7 @@ module.exports = function(RED) {
                 return res.text();
             })
             .then(function (html) {
-
-                var match = html.match("TKK='(\\d+.\\d+)';");
+                var match = html.match("tkk:'(\\d+.\\d+)'");
 
                 if (!match) node.error('Get key failed from google');
 
