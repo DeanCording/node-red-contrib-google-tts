@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-google-tts",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A node-red node for translating text to speech using Google's TTS service.",
   "dependencies": {
     "isomorphic-fetch": "2.2.*"
